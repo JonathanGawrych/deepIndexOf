@@ -1,5 +1,7 @@
+(function (window, document, undefined) {'use strict';
+
 if (!Array.prototype.deepIndexOf) {
-	Array.prototype.deepIndexOf = function (searchElement /*, fromIndex */ ) {
+	function deepIndexOf(searchElement /*, fromIndex */ ) {
 		"use strict";
 		if (this == null) {
 			throw new TypeError();
@@ -75,4 +77,17 @@ if (!Array.prototype.deepIndexOf) {
 		}
 		return -1;
 	}
+	
+	if (Object.defineProperty) {
+		Object.defineProperty(Array.prototype, 'deepIndexOf', {
+			configurable: true,
+			enumerable: false,
+			writable: true,
+			value: deepIndexOf
+		})
+	} else {
+		Array.prototype.deepIndexOf = deepIndexOf;
+	}
 }
+
+})(window, document);
